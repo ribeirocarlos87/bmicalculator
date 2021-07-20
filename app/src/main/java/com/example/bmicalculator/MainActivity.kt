@@ -2,6 +2,7 @@ package com.example.bmicalculator
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View.VISIBLE
 import android.widget.Toast
 import androidx.core.widget.doAfterTextChanged
 import com.example.bmicalculator.databinding.ActivityMainBinding
@@ -38,9 +39,17 @@ class MainActivity : AppCompatActivity() {
         if (weight != null && height != null) {
             val imc = weight / (height * height)
             //binding.result.visibility = "visible"
-            binding.result.text = "Seu IMC é %.2f".format(imc)
 
+            binding.result.visibility = VISIBLE
+
+
+            when {
+                imc <= 18 -> {binding.result.text = "Seu IMC é %.2f. Você está abaixo do peso ideal!".format(imc); binding.result.setBackgroundColor(-256)}
+                imc > 18 && imc <= 24 -> {binding.result.text = "Seu IMC é %.2f. Você está no seu peso ideal!".format(imc); binding.result.setBackgroundColor(-16711936)}
+                else -> {binding.result.text = "Seu IMC é %.2f. Você está acima do peso ideal!".format(imc); binding.result.setBackgroundColor(-65536)}
+            }
 
         }
     }
+
 }
